@@ -22,26 +22,39 @@ iso_p1_choice = ["m", "pressure", "density", "temperature", "crit_area_sub", "cr
 normal_p1_choice = ["pressure", "temperature", "density", "total_pressure", "mu", "md"]
 fanno_p1_choice = ["m", "pressure", "density", "temperature", "total_pressure_sub", "total_pressure_super", "velocity", "friction_sub", "friction_super", "entropy_sub", "entropy_super"]
 ray_p1_choice = ["m", "pressure", "density", "velocity", "temperature_sub", "temperature_super", "total_pressure_sub", "total_pressure_super", "total_temperature_sub", "total_temperature_super", "entropy_sub", "entropy_super"]
+con_p1_choice = ["mc","theta_c","beta"]
+obl_p1_choice = ['pressure','temperature','density','total_pressure','mu','mnu','mnd','beta','theta']
+obl_p2_choice = ['beta','theta','mnu']
+flag_all = ['weak','strong']
+
 
 # Helper to format dict results
 def format_results(results_dict): #fucntion written by chat gpt and it made the program work
     return "\n".join(f"{k}: {v}" for k, v in results_dict.items())
 
 # Solvers
-def isentropic(choice, value, gamma_select):
-    results = isentropic_solver(choice, value, gamma = gamma_select,to_dict=True)
+def isentropic(p1, value, gamma_select):
+    results = isentropic_solver(p1, value, gamma = gamma_select,to_dict=True)
     return format_results(results)
 
-def normal(choice, value, gamma_select):
-    results = normal_shockwave_solver(choice, value, gamma = gamma_select, to_dict=True)
+def normal(p1, value, gamma_select):
+    results = normal_shockwave_solver(p1, value, gamma = gamma_select, to_dict=True)
     return format_results(results)
 
-def fanno(choice, value, gamma_select):
-    results = fanno_solver(choice, value, gamma = gamma_select, to_dict=True)
+def fanno(p1, value, gamma_select):
+    results = fanno_solver(p1, value, gamma = gamma_select, to_dict=True)
     return format_results(results)
 
-def rayleigh(choice, value, gamma_select):
-    results = rayleigh_solver(choice, value, gamma = gamma_select, to_dict=True)
+def rayleigh(p1, value, gamma_select):
+    results = rayleigh_solver(p1, value, gamma = gamma_select, to_dict=True)
+    return format_results(results)
+
+def conical(mu, p1, value, flag, gamma_select):
+    results = conical_shockwave_solver(mu, p1, value, gamma = gamma_select, flag = flag , to_dict=True)
+    return format_results(results)
+
+def oblique(p1, p1_value, p2, p2_value, flag, gamma_select):
+    results = oblique_shockwave_solver(p1, p1_value, p2, p2_value, gamma = gamma_select, flag = flag, to_dict=True )
     return format_results(results)
 
 #Panel widgets
@@ -67,6 +80,19 @@ rayleigh_input_raw = pn.widgets.TextInput(name="Rayleigh Parameter Value")
 rayleigh_p1_select = pn.widgets.Select(name="Rayleigh Parameter", options=ray_p1_choice)
 rayleigh_output = pn.pane.Markdown("Rayleigh Results:\nm:0.0\nprs:0.0\ndrs:0.0\ntrs:0.0\ntprs:0.0\nttrs:0.0\nurs:0.0\neps:0.0")
 calc_button = pn.widgets.Button(name="Calculate", button_type='primary')
+
+conical_input_raw = pn.widgets.TextInput(name="Conical Shockwave Parameter Value")
+conical_p1_select = pn.widgets.Select(name="Conical Parameter", options=con_p1_choice)
+conical_mu_input_raw = pn.widgets.TextInput(name="Conical Shockwave Upstream Mach Number Value (Mu)")
+conical_flag_select = pn.widgets.Select(name="Conical Flag", options=flag_all)
+conical_output = pn.pane.Markdown("Conical Results:") #TODO: make the stuff here look nice with the newline things
+
+oblique_p1_raw = pn.widgets.TextInput(name="Oblique Shockwave Parameter One Value")
+oblique_p1_select = pn.widgets.Select(name="Oblique Parameter One", options=obl_p1_choice)
+oblique_p2_raw = pn.widgets.TextInput(name="Oblique Shockwave Upstream Mach Number Value (Mu)")
+oblique_p2_select = pn.widgets.Select(name="Oblique Parameter Two", options=obl_p2_choice)
+oblique_flag_select = pn.widgets.Select(name="Oblique Flag", options=flag_all)
+oblique_output = pn.pane.Markdown("Oblique Results:") #TODO: make the stuff here look nice with the newline things
 
 #for the lawyers lol
 credits = pn.pane.Markdown("AeroCalculator by Liam Griesacker and Massimo Mansueto of the Embry-Riddle Aeronautical University CFAL 2025. Credit to Davide Sandona of PyGasFlow.")
@@ -108,6 +134,28 @@ def update_display(event=None):
     except Exception as e:
         rayleigh_output.object = f"Results will print here when a valid input is present.\nm:0.0\nprs:0.0\ndrs:0.0\ntrs:0.0\ntprs:0.0\nttrs:0.0\nurs:0.0\neps:0.0"
 
+    #CONICAL
+    try:
+        con_val = float(conical_input_raw.value.strip())
+        con_mu_val = float (conical_mu_input_raw.value.strip())
+        con_choice = conical_p1_select.value
+        con_flag = conical_flag_select.value
+        conical_output.object = f"Conical Results:\n{conical(con_mu_val,con_choice,con_val,con_flag,gamma_val)}" #TODO:make the flag adjustable
+    except Exception as e:
+        conical_output.object = f"Results will print here when a valid input is present.\n #TODO: the nice newline spacing things
+
+    #OBLIQUE
+    try:
+        obl_p1_val = float(oblique_p1_raw.value.strip())
+        obl_p2_val = float(oblique_p2_raw.value.strip())
+        obl_choice_p1 = oblique_p1_select.value
+        obl_choice_p2 = oblique_p2_select.value
+        obl_flag = oblique_flag_select.value
+        oblique_output.object = f"Oblique Results:\n{oblique(obl_choice_p1,obl_p1_val,obl_choice_p2,obl_p2_val,obl_flag,gamma_val)}" #TODO:make the flag adjustable
+    except Exception as e:
+        oblique_output.object = f"Results will print here when a valid input is present.\n #TODO: the nice newline spacing things
+
+#you know, the button
 calc_button.on_click(update_display)
 
 # Layout
@@ -116,6 +164,8 @@ app = pn.Column(logos, gamma_input_raw,
     pn.Row(normal_input_raw, normal_p1_select, normal_output),
     pn.Row(fanno_input_raw, fanno_p1_select, fanno_output),
     pn.Row(rayleigh_input_raw, rayleigh_p1_select, rayleigh_output),
+    pn.Row(conical_mu_input_raw,conical_input_raw,conical_p1_select,conical_output,conical_flag_select),
+    pn.Row(oblique_p1_raw,oblique_p1_select,oblique_p2_raw,oblique_p2_select,oblique_flag_select),
     calc_button,
     credits
 )
