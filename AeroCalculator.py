@@ -89,15 +89,15 @@ rayleigh_output = pn.pane.Markdown("Rayleigh Results:  \nm:0.0  \nprs:0.0  \ndrs
 calc_button = pn.widgets.Button(name="Calculate", button_type='primary')
 
 conical_input_raw = pn.widgets.TextInput(name="Conical Shockwave Parameter Value")
-conical_p1_select = pn.widgets.Select(name="Conical Parameter", options=con_p1_choice)
+conical_p1_select = pn.widgets.Select(name="Conical Shockwave Parameter", options=con_p1_choice)
 conical_mu_input_raw = pn.widgets.TextInput(name="Conical Shockwave Upstream Mach Number Value (Mu)")
 conical_flag_select = pn.widgets.Select(name="Conical Flag", options=flag_all)
 conical_output = pn.pane.Markdown("Conical Results:  \nmu:0.0  \nmc:0.0  \ntheta_c:0.0  \nbeta:0.0  \ndelta:0.0  \npr:0.0  \ndr:0.0  \ntr:0.0  \ntpr:0.0  \npc_pu:0.0  \nrohc_rhou:0.0  \nTc_Tu:0.0")
 
 oblique_p1_raw = pn.widgets.TextInput(name="Oblique Shockwave Parameter One Value")
-oblique_p1_select = pn.widgets.Select(name="Oblique Parameter One", options=obl_p1_choice)
-oblique_p2_raw = pn.widgets.TextInput(name="Oblique Shockwave Upstream Mach Number Value (Mu)")
-oblique_p2_select = pn.widgets.Select(name="Oblique Parameter Two", options=obl_p2_choice)
+oblique_p1_select = pn.widgets.Select(name="Oblique Shockwave Parameter One", options=obl_p1_choice)
+oblique_p2_raw = pn.widgets.TextInput(name="Oblique Schockwave Parameter Two value")
+oblique_p2_select = pn.widgets.Select(name="Oblique Shockwave Parameter Two", options=obl_p2_choice)
 oblique_flag_select = pn.widgets.Select(name="Oblique Flag", options=flag_all)
 oblique_output = pn.pane.Markdown("Oblique Results:  \nmu:0.0  \nmnu:0.0  \nmd:0.0  \nmnd:0.0  \nbeta:0.0  \ntheta:0.0  \npr:0.0  \ntr:0.0  \ntpr:0.0")
 
