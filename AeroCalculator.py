@@ -167,18 +167,22 @@ def update_display(event=None):
 calc_button.on_click(update_display)
 
 # Layout
-app = pn.Column(logos, gamma_input_raw,
-                pn.Row(isentropic_input_raw, isentropic_p1_select, isentropic_output),
-                pn.Row(normal_input_raw, normal_p1_select, normal_output),
-                pn.Row(fanno_input_raw, fanno_p1_select, fanno_output),
-                pn.Row(rayleigh_input_raw, rayleigh_p1_select, rayleigh_output),
-                pn.Row(conical_mu_input_raw, conical_flag_select),
-                pn.Row(conical_input_raw, conical_p1_select, conical_output),
-                pn.Row(oblique_p1_raw, oblique_p1_select, oblique_flag_select),
-                pn.Row(oblique_p2_raw, oblique_p2_select, oblique_output),
-                calc_button,
-                credits
-                )
+app = pn.Tabs(
+    ("Compressable",
+     pn.Column(
+         logos, gamma_input_raw,
+         pn.Row(isentropic_input_raw, isentropic_p1_select, isentropic_output),
+         pn.Row(normal_input_raw, normal_p1_select, normal_output),
+         pn.Row(fanno_input_raw, fanno_p1_select, fanno_output),
+         pn.Row(rayleigh_input_raw, rayleigh_p1_select, rayleigh_output),
+         pn.Row(conical_mu_input_raw, conical_flag_select),
+         pn.Row(conical_input_raw, conical_p1_select, conical_output),
+         pn.Row(oblique_p1_raw, oblique_p1_select, oblique_flag_select),
+         pn.Row(oblique_p2_raw, oblique_p2_select, oblique_output),
+         calc_button,
+         credits
+     ))
+)
 
 # Use this line when running via `panel serve`
 pn.state.favicon = "static/erlogo.png"
