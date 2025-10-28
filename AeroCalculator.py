@@ -104,6 +104,8 @@ oblique_output = pn.pane.Markdown("Oblique Results:  \nmu:0.0  \nmnu:0.0  \nmd:0
 # for the lawyers lol
 credits = pn.pane.Markdown("AeroCalculator by Liam Griesacker and Massimo Mansueto of the Embry-Riddle Aeronautical University CFAL 2025. Credit to Davide Sandona of PyGasFlow.")
 
+#tell the users the unfinished pages are works in progress
+label_wip = pn.pane.Markdown("AeroCalculator by Liam Griesacker and Massimo Mansueto of the Embry-Riddle Aeronautical University CFAL 2025. Credit to Davide Sandona of PyGasFlow.")
 
 # Update function which runs when calculate button is clicked
 # for all the try and excepts first line the .value.strip() thing chat gpt did and it worked
@@ -176,10 +178,10 @@ def update_display(event=None): #TODO: add error printouts for the user
 calc_button.on_click(update_display)
 
 # Layout
-app = pn.Tabs(
-    ("Compressable",
+app = pn.Column(logos, pn.Tabs(
+    ("Compressable Functions Calculator",
      pn.Column(
-         logos, gamma_input_raw,
+         gamma_input_raw,
          pn.Row(isentropic_input_raw, isentropic_p1_select, isentropic_output),
          pn.Row(normal_input_raw, normal_p1_select, normal_output),
          pn.Row(fanno_input_raw, fanno_p1_select, fanno_output),
@@ -190,8 +192,23 @@ app = pn.Tabs(
          pn.Row(oblique_p2_raw, oblique_p2_select, oblique_output),
          calc_button,
          credits
+     )),
+    ("Compressable Functions Graphs",
+     pn.Column(
+         pn.Row(label_wip),
+         pn.Row(credits)
+     )),
+    ("Incompressable Functions Calculator",
+     pn.Column(
+         pn.Row(label_wip),
+         pn.Row(credits)
+     )),
+    ("Incompressable Functions Graphs",
+     pn.Column(
+         pn.Row(label_wip),
+         pn.Row(credits)
      ))
-)
+))
 
 # Use this line when running via `panel serve`
 pn.state.favicon = "static/erlogo.png"
