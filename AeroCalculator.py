@@ -89,15 +89,15 @@ rayleigh_output = pn.pane.Markdown("Rayleigh Results:  \nm:0.0  \nprs:0.0  \ndrs
 calc_button = pn.widgets.Button(name="Calculate", button_type='primary')
 
 conical_input_raw = pn.widgets.TextInput(name="Conical Shockwave Parameter Value")
-conical_p1_select = pn.widgets.Select(name="Conical Parameter", options=con_p1_choice)
+conical_p1_select = pn.widgets.Select(name="Conical Shockwave Parameter", options=con_p1_choice)
 conical_mu_input_raw = pn.widgets.TextInput(name="Conical Shockwave Upstream Mach Number Value (Mu)")
 conical_flag_select = pn.widgets.Select(name="Conical Flag", options=flag_all)
 conical_output = pn.pane.Markdown("Conical Results:  \nmu:0.0  \nmc:0.0  \ntheta_c:0.0  \nbeta:0.0  \ndelta:0.0  \npr:0.0  \ndr:0.0  \ntr:0.0  \ntpr:0.0  \npc_pu:0.0  \nrohc_rhou:0.0  \nTc_Tu:0.0")
 
 oblique_p1_raw = pn.widgets.TextInput(name="Oblique Shockwave Parameter One Value")
-oblique_p1_select = pn.widgets.Select(name="Oblique Parameter One", options=obl_p1_choice)
-oblique_p2_raw = pn.widgets.TextInput(name="Oblique Shockwave Upstream Mach Number Value (Mu)")
-oblique_p2_select = pn.widgets.Select(name="Oblique Parameter Two", options=obl_p2_choice)
+oblique_p1_select = pn.widgets.Select(name="Oblique Shockwave Parameter One", options=obl_p1_choice)
+oblique_p2_raw = pn.widgets.TextInput(name="Oblique Schockwave Parameter Two value")
+oblique_p2_select = pn.widgets.Select(name="Oblique Shockwave Parameter Two", options=obl_p2_choice)
 oblique_flag_select = pn.widgets.Select(name="Oblique Flag", options=flag_all)
 oblique_output = pn.pane.Markdown("Oblique Results:  \nmu:0.0  \nmnu:0.0  \nmd:0.0  \nmnd:0.0  \nbeta:0.0  \ntheta:0.0  \npr:0.0  \ntr:0.0  \ntpr:0.0")
 
@@ -107,60 +107,69 @@ credits = pn.pane.Markdown("AeroCalculator by Liam Griesacker and Massimo Mansue
 
 # Update function which runs when calculate button is clicked
 # for all the try and excepts first line the .value.strip() thing chat gpt did and it worked
-def update_display(event=None):
+def update_display(event=None): #TODO: add error printouts for the user
+    #up top so its avalible for all fucntions
     gamma_val = float(gamma_input_raw.value.strip())
+
+    #all functions have the if thing so evrything runs, otherwise weird stuff happens with panel if one of the fields isnt filled out
     # ISENTROPIC
-    try:
-        ise_val = float(isentropic_input_raw.value.strip())
-        ise_choice = isentropic_p1_select.value
-        isentropic_output.object = f"Isentropic Results:  \n{isentropic(ise_choice, ise_val, gamma_val)}"
-    except Exception as e:
-        isentropic_output.object = f"Results will print here when a valid input is present.  \nm:  \npr:  \ndr:  \ntr:  \nprs:  \ndrs:  \ntrs:  \nurs:  \nars:  \nma:  \npm:  \n"
+    if isentropic_input_raw.value.strip():
+        try:
+            ise_val = float(isentropic_input_raw.value.strip())
+            ise_choice = isentropic_p1_select.value
+            isentropic_output.object = f"Isentropic Results:  \n{isentropic(ise_choice, ise_val, gamma_val)}"
+        except Exception as e:
+            isentropic_output.object = f"Results will print here when a valid input is present.  \nm:  \npr:  \ndr:  \ntr:  \nprs:  \ndrs:  \ntrs:  \nurs:  \nars:  \nma:  \npm:  \n"
 
     # NORMAL SHOCK
-    try:
-        nor_val = float(normal_input_raw.value.strip())
-        nor_choice = normal_p1_select.value
-        normal_output.object = f"Normal Shock Results:  \n{normal(nor_choice, nor_val, gamma_val)}"
-    except Exception as e:
-        normal_output.object = f"Results will print here when a valid input is present:  \nmu:0.0  \nmd:0.0  \npr:0.0  \ndr:0.0  \ntr:0.0  \ntpr:0.0"
+    if normal_input_raw.value.strip():
+        try:
+            nor_val = float(normal_input_raw.value.strip())
+            nor_choice = normal_p1_select.value
+            normal_output.object = f"Normal Shock Results:  \n{normal(nor_choice, nor_val, gamma_val)}"
+        except Exception as e:
+            normal_output.object = f"Results will print here when a valid input is present:  \nmu:0.0  \nmd:0.0  \npr:0.0  \ndr:0.0  \ntr:0.0  \ntpr:0.0"
 
     # FANNO
-    try:
-        fan_val = float(fanno_input_raw.value.strip())
-        fan_choice = fanno_p1_select.value
-        fanno_output.object = f"Fanno Results:  \n{fanno(fan_choice, fan_val, gamma_val)}"
-    except Exception as e:
-        fanno_output.object = f"Results will print here when a valid input is present.  \nm:0.0  \nprs:0.0  \ndrs:0.0  \ntrs:0.0  \ntprs:0.0  \nurs:0.0  \nfps:0.0  \neps:0.0"
+    if fanno_input_raw.value.strip():
+        try:
+            fan_val = float(fanno_input_raw.value.strip())
+            fan_choice = fanno_p1_select.value
+            fanno_output.object = f"Fanno Results:  \n{fanno(fan_choice, fan_val, gamma_val)}"
+        except Exception as e:
+            fanno_output.object = f"Results will print here when a valid input is present.  \nm:0.0  \nprs:0.0  \ndrs:0.0  \ntrs:0.0  \ntprs:0.0  \nurs:0.0  \nfps:0.0  \neps:0.0"
 
     # RAYLEIGH
-    try:
-        ray_val = float(rayleigh_input_raw.value.strip())
-        ray_choice = rayleigh_p1_select.value
-        rayleigh_output.object = f"Rayleigh Results:  \n{rayleigh(ray_choice, ray_val, gamma_val)}"
-    except Exception as e:
-        rayleigh_output.object = f"Results will print here when a valid input is present.  \nm:0.0  \nprs:0.0  \ndrs:0.0  \ntrs:0.0  \ntprs:0.0  \nttrs:0.0  \nurs:0.0  \neps:0.0"
+    if rayleigh_input_raw.value.strip():
+        try:
+            ray_val = float(rayleigh_input_raw.value.strip())
+            ray_choice = rayleigh_p1_select.value
+            rayleigh_output.object = f"Rayleigh Results:  \n{rayleigh(ray_choice, ray_val, gamma_val)}"
+        except Exception as e:
+            rayleigh_output.object = f"Results will print here when a valid input is present.  \nm:0.0  \nprs:0.0  \ndrs:0.0  \ntrs:0.0  \ntprs:0.0  \nttrs:0.0  \nurs:0.0  \neps:0.0"
 
     # CONICAL
-    try:
-        con_val = float(conical_input_raw.value.strip())
-        con_mu_val = float(conical_mu_input_raw.value.strip())
-        con_choice = conical_p1_select.value
-        con_flag = conical_flag_select.value
-        conical_output.object = f"Conical Results:  \n{conical(con_mu_val, con_choice, con_val, con_flag, gamma_val)}"
-    except Exception as e:
-        conical_output.object = f"Results will print here when a valid input is present.  \nmu:0.0  \nmc:0.0  \ntheta_c:0.0  \nbeta:0.0  \ndelta:0.0    \npr:0.0    \ndr:0.0  \ntr:0.0  \ntpr:0.0  \npc_pu:0.0  \nrohc_rhou:0.0  \nTc_Tu:0.0"
+    if conical_input_raw.value.strip() and conical_mu_input_raw.value.strip():
+        try:
+            con_val = float(conical_input_raw.value.strip())
+            con_mu_val = float(conical_mu_input_raw.value.strip())
+            con_choice = conical_p1_select.value
+            con_flag = conical_flag_select.value
+            conical_output.object = f"Conical Results:  \n{conical(con_mu_val, con_choice, con_val, con_flag, gamma_val)}"
+        except Exception as e:
+            conical_output.object = f"Results will print here when a valid input is present.  \nmu:0.0  \nmc:0.0  \ntheta_c:0.0  \nbeta:0.0  \ndelta:0.0    \npr:0.0    \ndr:0.0  \ntr:0.0  \ntpr:0.0  \npc_pu:0.0  \nrohc_rhou:0.0  \nTc_Tu:0.0"
 
     # OBLIQUE
-    try:
-        obl_p1_val = float(oblique_p1_raw.value.strip())
-        obl_p2_val = float(oblique_p2_raw.value.strip())
-        obl_choice_p1 = oblique_p1_select.value
-        obl_choice_p2 = oblique_p2_select.value
-        obl_flag = oblique_flag_select.value
-        oblique_output.object = f"Oblique Results:  \n{oblique(obl_choice_p1, obl_p1_val, obl_choice_p2, obl_p2_val, obl_flag, gamma_val)}"
-    except Exception as e:
-        oblique_output.object = f"Results will print here when a valid input is present.  \nmu:0.0  \nmnu:0.0  \nmd:0.0  \nmnd:0.0  \nbeta:0.0  \ntheta:0.0  \npr:0.0  \ntr:0.0  \ntpr:0.0"
+    if oblique_p1_raw.value.strip() and oblique_p2_raw.value.strip():
+        try:
+            obl_p1_val = float(oblique_p1_raw.value.strip())
+            obl_p2_val = float(oblique_p2_raw.value.strip())
+            obl_choice_p1 = oblique_p1_select.value
+            obl_choice_p2 = oblique_p2_select.value
+            obl_flag = oblique_flag_select.value
+            oblique_output.object = f"Oblique Results:  \n{oblique(obl_choice_p1, obl_p1_val, obl_choice_p2, obl_p2_val, obl_flag, gamma_val)}"
+        except Exception as e:
+            oblique_output.object = f"Results will print here when a valid input is present.  \nmu:0.0  \nmnu:0.0  \nmd:0.0  \nmnd:0.0  \nbeta:0.0  \ntheta:0.0  \npr:0.0  \ntr:0.0  \ntpr:0.0"
 
 
 # you know, the button
