@@ -149,7 +149,7 @@ def update_display(event=None): #TODO: add error printouts for the user
             rayleigh_output.object = f"Results will print here when a valid input is present.  \nm:0.0  \nprs:0.0  \ndrs:0.0  \ntrs:0.0  \ntprs:0.0  \nttrs:0.0  \nurs:0.0  \neps:0.0"
 
     # CONICAL
-    if conical_input_raw.value.strip() and conical_mu_input_raw.value.strip()
+    if conical_input_raw.value.strip() and conical_mu_input_raw.value.strip():
         try:
             con_val = float(conical_input_raw.value.strip())
             con_mu_val = float(conical_mu_input_raw.value.strip())
@@ -160,7 +160,7 @@ def update_display(event=None): #TODO: add error printouts for the user
             conical_output.object = f"Results will print here when a valid input is present.  \nmu:0.0  \nmc:0.0  \ntheta_c:0.0  \nbeta:0.0  \ndelta:0.0    \npr:0.0    \ndr:0.0  \ntr:0.0  \ntpr:0.0  \npc_pu:0.0  \nrohc_rhou:0.0  \nTc_Tu:0.0"
 
     # OBLIQUE
-    if oblique_p1_raw.value.strip() and oblique_p2_raw.value.strip()
+    if oblique_p1_raw.value.strip() and oblique_p2_raw.value.strip():
         try:
             obl_p1_val = float(oblique_p1_raw.value.strip())
             obl_p2_val = float(oblique_p2_raw.value.strip())
