@@ -99,7 +99,7 @@ oblique_p1_select = pn.widgets.Select(name="Oblique Shockwave Parameter One", op
 oblique_p2_raw = pn.widgets.TextInput(name="Oblique Schockwave Parameter Two value")
 oblique_p2_select = pn.widgets.Select(name="Oblique Shockwave Parameter Two", options=obl_p2_choice)
 oblique_flag_select = pn.widgets.Select(name="Oblique Flag", options=flag_all)
-oblique_output = pn.pane.Markdown("Oblique Results:  \nUpstream Mach Number:0.0  \nUpstream Normal Mach Number:0.0  \nMach Number Downstream:0.0  \nDownstream Normal Mach Number:0.0  \nBeta:0.0  \nTheta:0.0  \nPressure Ratio:0.0  \nTemperature Ratio:0.0  \nTotal Pressure Ratio:0.0")
+oblique_output = pn.pane.Markdown("Oblique Results:  \nUpstream Mach Number:0.0  \nUpstream Normal Mach Number:0.0  \nMach Number Downstream:0.0  \nDownstream Normal Mach Number:0.0  \nBeta:0.0  \nTheta:0.0  \nPressure Ratio:0.0  \nDensity Ratio:0.0  \nTemperature Ratio:0.0  \nTotal Pressure Ratio:0.0")
 
 # for the lawyers lol
 credits = pn.pane.Markdown("AeroCalculator by Liam Griesacker and Massimo Mansueto of the Embry-Riddle Aeronautical University CFAL 2025. Credit to Davide Sandona of PyGasFlow.")
@@ -171,7 +171,7 @@ def update_display(event=None): #TODO: add error printouts for the user
             obl_flag = oblique_flag_select.value
             oblique_output.object = f"Oblique Results:  \n{oblique(obl_choice_p1, obl_p1_val, obl_choice_p2, obl_p2_val, obl_flag, gamma_val)}"
         except Exception as e:
-            oblique_output.object = f"Results will print here when a valid input is present.  \nUpstream Mach Number:0.0  \nUpstream Normal Mach Number:0.0  \nMach Number Downstream:0.0  \nDownstream Normal Mach Number:0.0  \nBeta:0.0  \nTheta:0.0  \nPressure Ratio:0.0  \nTemperature Ratio:0.0  \nTotal Pressure Ratio:0.0""
+            oblique_output.object = f"Results will print here when a valid input is present.  \nUpstream Mach Number:0.0  \nUpstream Normal Mach Number:0.0  \nMach Number Downstream:0.0  \nDownstream Normal Mach Number:0.0  \nBeta:0.0  \nTheta:0.0  \nPressure Ratio:0.0  \nDensity Ratio:0.0  \nTemperature Ratio:0.0  \nTotal Pressure Ratio:0.0""
 
 
 # you know, the button
