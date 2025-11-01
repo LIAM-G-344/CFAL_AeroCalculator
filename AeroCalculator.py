@@ -1,4 +1,4 @@
-# Liam Griesacker copyright 2025
+# Liam Griesacker and Massimo Mansueto copyright 2025
 # most of this i wrote but it gave me some error because the solvers return dictonaries and kept retruning a weird error
 # so i fed it into chad gpt and told it to fix it and it did and it also organized this prittey well so, imma take it. any
 # code written by chad gpt is marked accordingly
