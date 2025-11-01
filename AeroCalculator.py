@@ -5,6 +5,8 @@
 
 
 import panel as pn
+import matplotlib.pyplot as plt
+import numpy as np
 from bokeh.io import curdoc
 from pygasflow.solvers import (
     isentropic_solver,
@@ -13,6 +15,13 @@ from pygasflow.solvers import (
     conical_shockwave_solver,
     fanno_solver,
     rayleigh_solver
+)
+from pygasflow.interactive.diagrams import (
+    IsentropicDiagram,
+    NormalShockDiagram,
+    ObliqueShockDiagram,
+    FannoDiagram,
+    RayleighDiagram
 )
 from scipy.linalg.cython_lapack import dsfrk
 
@@ -102,11 +111,21 @@ oblique_p2_select = pn.widgets.Select(name="Oblique Shockwave Parameter Two", op
 oblique_flag_select = pn.widgets.Select(name="Oblique Flag", options=flag_all)
 oblique_output = pn.pane.Markdown("Oblique Results:  \nUpstream Mach Number:0.0  \nUpstream Normal Mach Number:0.0  \nMach Number Downstream:0.0  \nDownstream Normal Mach Number:0.0  \nBeta:0.0  \nTheta:0.0  \nPressure Ratio:0.0  \nDensity Ratio:0.0  \nTemperature Ratio:0.0  \nTotal Pressure Ratio:0.0")
 
+def experemental_graph:
+    fig, ax = plt.subplots(figsize=(6,4))
+    x= np.array([1,2,3,4])
+    y= np.array([2,7,9,4])
+    ax.plot(x,y)
+    plt.close(fig)
+    return fig
+
+expermental_graph_output = pn.pane.Matplotlib(experemental_graph(),dpi=144,tight=True)
+
 # for the lawyers lol
 credits = pn.pane.Markdown("AeroCalculator by Liam Griesacker and Massimo Mansueto of the Embry-Riddle Aeronautical University CFAL 2025. Credit to Davide Sandona of PyGasFlow.")
 
 #tell the users the unfinished pages are works in progress
-label_wip = pn.pane.Markdown("AeroCalculator by Liam Griesacker and Massimo Mansueto of the Embry-Riddle Aeronautical University CFAL 2025. Credit to Davide Sandona of PyGasFlow.")
+label_wip = pn.pane.Markdown("WORK IN PROGRESS!")
 
 # Update function which runs when calculate button is clicked
 # for all the try and excepts first line the .value.strip() thing chat gpt did and it worked
@@ -197,6 +216,12 @@ app = pn.Column(logos, pn.Tabs(
     ("Compressable Functions Graphs",
      pn.Column(
          pn.Row(label_wip),
+
+         pn.Row(IsentropicDiagram()),
+         pn.Row(NormalShockDiagram()),
+         pn.Row(FannoDiagram()),
+         pn.Row(RayleighDiagram()),
+         pn.Row(ObliqueShockDiagram()),
          pn.Row(credits)
      )),
     ("Incompressable Functions Calculator",
