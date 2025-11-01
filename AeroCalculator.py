@@ -220,7 +220,7 @@ app = pn.Column(logos, pn.Tabs(
          pn.Row(GasDiagram()),
          pn.Row(credits)
      )),
-("Incompressable Functions Calculator",
+    ("Incompressable Functions Calculator",
      pn.Column(
          pn.Row(label_wip),
          pn.Row(credits)
