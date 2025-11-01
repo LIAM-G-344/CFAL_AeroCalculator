@@ -23,7 +23,7 @@ from pygasflow.interactive.diagrams import (
     FannoDiagram,
     RayleighDiagram
 )
-from scipy.linalg.cython_lapack import dsfrk
+
 
 pn.extension()
 
@@ -76,7 +76,7 @@ def oblique(p1, p1_value, p2, p2_value, flag, gamma_select):
 
 # Panel widgets
 # logoz becauz it makes it look like a massive W
-logos = pn.pane.Image('logo.png', width=400) (x = 40; width=range)
+
 
 # gamma for all
 gamma_input_raw = pn.widgets.TextInput(name="Gamma (applys for all functions)", value='1.4')
@@ -111,15 +111,7 @@ oblique_p2_select = pn.widgets.Select(name="Oblique Shockwave Parameter Two", op
 oblique_flag_select = pn.widgets.Select(name="Oblique Flag", options=flag_all)
 oblique_output = pn.pane.Markdown("Oblique Results:  \nUpstream Mach Number:0.0  \nUpstream Normal Mach Number:0.0  \nMach Number Downstream:0.0  \nDownstream Normal Mach Number:0.0  \nBeta:0.0  \nTheta:0.0  \nPressure Ratio:0.0  \nDensity Ratio:0.0  \nTemperature Ratio:0.0  \nTotal Pressure Ratio:0.0")
 
-def experemental_graph:
-    fig, ax = plt.subplots(figsize=(6,4))
-    x= np.array([1,2,3,4])
-    y= np.array([2,7,9,4])
-    ax.plot(x,y)
-    plt.close(fig)
-    return fig
 
-expermental_graph_output = pn.pane.Matplotlib(experemental_graph(),dpi=144,tight=True)
 
 # for the lawyers lol
 credits = pn.pane.Markdown("AeroCalculator by Liam Griesacker and Massimo Mansueto of the Embry-Riddle Aeronautical University CFAL 2025. Credit to Davide Sandona of PyGasFlow.")
@@ -179,7 +171,7 @@ def update_display(event=None): #TODO: add error printouts for the user
             con_flag = conical_flag_select.value
             conical_output.object = f"Conical Results:  \n{conical(con_mu_val, con_choice, con_val, con_flag, gamma_val)}"
         except Exception as e:
-            conical_output.object = f"Results will print here when a valid input is present.  \nUpstream Mach Number:0.0  \nMach Number at Cones' Surface:0.0  \nHalf Cone Angle:0.0  \nBeta (Shockwave Angle):0.0  \nDelta (Flow Deflection Angle):0.0  \nPressure Ratio Pd/Pu:0.0  \nDensity Ratio rhod/rhou:0.0  \nTemperature Ratio:0.0  \nTotal Pressure Ratio across Shockwave:0.0  \nPressure Ratio Between Cone Surface and Upstream Condition:0.0  \nDensity Ratio Between Cone Surface and Upstream Condition:0.0  \nTemperature Ratio Between Cone Surface and Upstream Condition:0.0""
+            conical_output.object = f"Results will print here when a valid input is present.  \nUpstream Mach Number:0.0  \nMach Number at Cones' Surface:0.0  \nHalf Cone Angle:0.0  \nBeta (Shockwave Angle):0.0  \nDelta (Flow Deflection Angle):0.0  \nPressure Ratio Pd/Pu:0.0  \nDensity Ratio rhod/rhou:0.0  \nTemperature Ratio:0.0  \nTotal Pressure Ratio across Shockwave:0.0  \nPressure Ratio Between Cone Surface and Upstream Condition:0.0  \nDensity Ratio Between Cone Surface and Upstream Condition:0.0  \nTemperature Ratio Between Cone Surface and Upstream Condition:0.0"
 
     # OBLIQUE
     if oblique_p1_raw.value.strip() and oblique_p2_raw.value.strip():
@@ -198,7 +190,7 @@ def update_display(event=None): #TODO: add error printouts for the user
 calc_button.on_click(update_display)
 
 # Layout
-app = pn.Column(logos, pn.Tabs(
+app = pn.Column(pn.Tabs(
     ("Compressable Functions Calculator",
      pn.Column(
          gamma_input_raw,
