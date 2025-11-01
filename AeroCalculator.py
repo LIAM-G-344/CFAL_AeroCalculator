@@ -22,7 +22,7 @@ from pygasflow.interactive.diagrams import (
     ObliqueShockDiagram,
     FannoDiagram,
     RayleighDiagram,
-    GasPage, GasDiagram
+    GasDiagram
 )
 
 
