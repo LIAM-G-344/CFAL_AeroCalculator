@@ -14,6 +14,7 @@ from pygasflow.solvers import (
     fanno_solver,
     rayleigh_solver
 )
+from scipy.linalg.cython_lapack import dsfrk
 
 pn.extension()
 
