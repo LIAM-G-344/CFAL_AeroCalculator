@@ -74,33 +74,33 @@ gamma_input_raw = pn.widgets.TextInput(name="Gamma (applys for all functions)", 
 
 isentropic_input_raw = pn.widgets.TextInput(name="Isentropic Parameter Value")
 isentropic_p1_select = pn.widgets.Select(name="Isentropic Parameter", options=iso_p1_choice)
-isentropic_output = pn.pane.Markdown("Results will print here when a valid input is present.  \nm:0.0  \npr:0.0  \ndr:0.0  \ntr:0.0  \nprs:0.0  \ndrs:0.0  \ntrs:0.0  \nurs:0.0  \nars:0.0  \nma:0.0  \npm:0.0  \n")
+isentropic_output = pn.pane.Markdown("Results will print here when a valid input is present.  \nMach Number:0.0  \nPressure Ratio P/P0:0.0  \nDensity Ratio rho/rho0:0.0  \nTemperature Ratio T/T0:0.0  \nCritical Pressure Ratio P/P*:0.0  \nCritical Density Ratio rho/rho*:0.0  \nCritical Temperature Ratio T/T*:0.0  \nCritical Velocity Ratio U/U*:0.0  \nCritical Area Ratio A/A*:0.0  \nMach Angle:0.0  \nPrandtl-Meyer Angle:0.0  \n")
 
 normal_input_raw = pn.widgets.TextInput(name="Normal Shock Parameter Value.")
 normal_p1_select = pn.widgets.Select(name="Normal Shock Parameter", options=normal_p1_choice)
-normal_output = pn.pane.Markdown("Normal Shock Results:  \nmu:0.0  \nmd:0.0  \npr:0.0  \ndr:0.0  \ntr:0.0  \ntpr:0.0")
+normal_output = pn.pane.Markdown("Normal Shock Results:  \nUpstream Mach Number:0.0  \nMach Number Downstream:0.0  \nPressure Ratio:0.0  \nDensity Ratio:0.0  \nTemperature Ratio:0.0  \nTotal Pressure Ratio:0.0")
 
 fanno_input_raw = pn.widgets.TextInput(name="Fanno Parameter Value")
 fanno_p1_select = pn.widgets.Select(name="Fanno Parameter", options=fanno_p1_choice)
-fanno_output = pn.pane.Markdown("Fanno Results:  \nm:0.0  \nprs:0.0  \ndrs:0.0  \ntrs:0.0  \ntprs:0.0  \nurs:0.0  \nfps:0.0  \neps:0.0")
+fanno_output = pn.pane.Markdown("Fanno Results:  \nMach Number:0.0  \nCritical Pressure Ratio P/P*:0.0  \nCritical Density Ratio rho/rho*:0.0  \nCritical Temperature Ratio T/T*:0.0  \nCritical Total Pressure Ratio P0/P0:0.0  \nCritical Velocity Ratio U/U*:0.0  \nCritical Friction Parameter 4fL*/D:0.0  \nCritical Entropy Ratio (s*-s)/R:0.0")
 
 rayleigh_input_raw = pn.widgets.TextInput(name="Rayleigh Parameter Value")
 rayleigh_p1_select = pn.widgets.Select(name="Rayleigh Parameter", options=ray_p1_choice)
-rayleigh_output = pn.pane.Markdown("Rayleigh Results:  \nm:0.0  \nprs:0.0  \ndrs:0.0  \ntrs:0.0  \ntprs:0.0  \nttrs:0.0  \nurs:0.0  \neps:0.0")
+rayleigh_output = pn.pane.Markdown("Rayleigh Results:  \Mach Number:0.0  \nCritical Pressure Ratio P/P*:0.0  \nCritical Density Ratio rho/rho*:0.0  \nCritical Temperature Ratio T/T*:0.0  \nCritical Total Pressure Ratio P0/P0:0.0  \nCritical Total Temperature Ratio T0/T0:0.0  \nCritical Velocity Ratio U/U*:0.0  \nCritical Entropy Ratio (s*-s)/R:0.0")
 calc_button = pn.widgets.Button(name="Calculate", button_type='primary')
 
 conical_input_raw = pn.widgets.TextInput(name="Conical Shockwave Parameter Value")
 conical_p1_select = pn.widgets.Select(name="Conical Shockwave Parameter", options=con_p1_choice)
 conical_mu_input_raw = pn.widgets.TextInput(name="Conical Shockwave Upstream Mach Number Value (Mu)")
 conical_flag_select = pn.widgets.Select(name="Conical Flag", options=flag_all)
-conical_output = pn.pane.Markdown("Conical Results:  \nmu:0.0  \nmc:0.0  \ntheta_c:0.0  \nbeta:0.0  \ndelta:0.0  \npr:0.0  \ndr:0.0  \ntr:0.0  \ntpr:0.0  \npc_pu:0.0  \nrohc_rhou:0.0  \nTc_Tu:0.0")
+conical_output = pn.pane.Markdown("Conical Results:  \nUpstream Mach Number:0.0  \nMach Number at Cones' Surface:0.0  \nHalf Cone Angle:0.0  \nBeta (Shockwave Angle):0.0  \nDelta (Flow Deflection Angle):0.0  \nPressure Ratio Pd/Pu:0.0  \nDensity Ratio rhod/rhou:0.0  \nTemperature Ratio:0.0  \nTotal Pressure Ratio across Shockwave:0.0  \nPressure Ratio Between Cone Surface and Upstream Condition:0.0  \nDensity Ratio Between Cone Surface and Upstream Condition:0.0  \nTemperature Ratio Between Cone Surface and Upstream Condition:0.0")
 
 oblique_p1_raw = pn.widgets.TextInput(name="Oblique Shockwave Parameter One Value")
 oblique_p1_select = pn.widgets.Select(name="Oblique Shockwave Parameter One", options=obl_p1_choice)
 oblique_p2_raw = pn.widgets.TextInput(name="Oblique Schockwave Parameter Two value")
 oblique_p2_select = pn.widgets.Select(name="Oblique Shockwave Parameter Two", options=obl_p2_choice)
 oblique_flag_select = pn.widgets.Select(name="Oblique Flag", options=flag_all)
-oblique_output = pn.pane.Markdown("Oblique Results:  \nmu:0.0  \nmnu:0.0  \nmd:0.0  \nmnd:0.0  \nbeta:0.0  \ntheta:0.0  \npr:0.0  \ntr:0.0  \ntpr:0.0")
+oblique_output = pn.pane.Markdown("Oblique Results:  \nUpstream Mach Number:0.0  \nUpstream Normal Mach Number:0.0  \nMach Number Downstream:0.0  \nDownstream Normal Mach Number:0.0  \nBeta:0.0  \nTheta:0.0  \nPressure Ratio:0.0  \nDensity Ratio:0.0  \nTemperature Ratio:0.0  \nTotal Pressure Ratio:0.0")
 
 # for the lawyers lol
 credits = pn.pane.Markdown("AeroCalculator by Liam Griesacker and Massimo Mansueto of the Embry-Riddle Aeronautical University CFAL 2025. Credit to Davide Sandona of PyGasFlow.")
@@ -122,7 +122,7 @@ def update_display(event=None): #TODO: add error printouts for the user
             ise_choice = isentropic_p1_select.value
             isentropic_output.object = f"Isentropic Results:  \n{isentropic(ise_choice, ise_val, gamma_val)}"
         except Exception as e:
-            isentropic_output.object = f"Results will print here when a valid input is present.  \nm:  \npr:  \ndr:  \ntr:  \nprs:  \ndrs:  \ntrs:  \nurs:  \nars:  \nma:  \npm:  \n"
+            isentropic_output.object = f"Results will print here when a valid input is present.  \nMach Number:0.0  \nPressure Ratio P/P0:0.0  \nDensity Ratio rho/rho0:0.0  \nTemperature Ratio T/T0:0.0  \nCritical Pressure Ratio P/P*:0.0  \nCritical Density Ratio rho/rho*:0.0  \nCritical Temperature Ratio T/T*:0.0  \nCritical Velocity Ratio U/U*:0.0  \nCritical Area Ratio A/A*:0.0  \nMach Angle:0.0  \nPrandtl-Meyer Angle:0.0  \n"
 
     # NORMAL SHOCK
     if normal_input_raw.value.strip():
@@ -131,7 +131,7 @@ def update_display(event=None): #TODO: add error printouts for the user
             nor_choice = normal_p1_select.value
             normal_output.object = f"Normal Shock Results:  \n{normal(nor_choice, nor_val, gamma_val)}"
         except Exception as e:
-            normal_output.object = f"Results will print here when a valid input is present:  \nmu:0.0  \nmd:0.0  \npr:0.0  \ndr:0.0  \ntr:0.0  \ntpr:0.0"
+            normal_output.object = f"Results will print here when a valid input is present:  \nUpstream Mach Number:0.0  \nMach Number Downstream:0.0  \nPressure Ratio:0.0  \nDensity Ratio:0.0  \nTemperature Ratio:0.0  \nTotal Pressure Ratio:0.0"
 
     # FANNO
     if fanno_input_raw.value.strip():
@@ -140,7 +140,7 @@ def update_display(event=None): #TODO: add error printouts for the user
             fan_choice = fanno_p1_select.value
             fanno_output.object = f"Fanno Results:  \n{fanno(fan_choice, fan_val, gamma_val)}"
         except Exception as e:
-            fanno_output.object = f"Results will print here when a valid input is present.  \nm:0.0  \nprs:0.0  \ndrs:0.0  \ntrs:0.0  \ntprs:0.0  \nurs:0.0  \nfps:0.0  \neps:0.0"
+            fanno_output.object = f"Results will print here when a valid input is present.  \nMach Number:0.0  \nCritical Pressure Ratio P/P*:0.0  \nCritical Density Ratio rho/rho*:0.0  \nCritical Temperature Ratio T/T*:0.0  \nCritical Total Pressure Ratio P0/P0:0.0  \nCritical Velocity Ratio U/U*:0.0  \nCritical Friction Parameter 4fL*/D:0.0  \nCritical Entropy Ratio (s*-s)/R:0.0"
 
     # RAYLEIGH
     if rayleigh_input_raw.value.strip():
@@ -149,7 +149,7 @@ def update_display(event=None): #TODO: add error printouts for the user
             ray_choice = rayleigh_p1_select.value
             rayleigh_output.object = f"Rayleigh Results:  \n{rayleigh(ray_choice, ray_val, gamma_val)}"
         except Exception as e:
-            rayleigh_output.object = f"Results will print here when a valid input is present.  \nm:0.0  \nprs:0.0  \ndrs:0.0  \ntrs:0.0  \ntprs:0.0  \nttrs:0.0  \nurs:0.0  \neps:0.0"
+            rayleigh_output.object = f"Results will print here when a valid input is present.  \Mach Number:0.0  \nCritical Pressure Ratio P/P*:0.0  \nCritical Density Ratio rho/rho*:0.0  \nCritical Temperature Ratio T/T*:0.0  \nCritical Total Pressure Ratio P0/P0:0.0  \nCritical Total Temperature Ratio T0/T0:0.0  \nCritical Velocity Ratio U/U*:0.0  \nCritical Entropy Ratio (s*-s)/R:0.0"
 
     # CONICAL
     if conical_input_raw.value.strip() and conical_mu_input_raw.value.strip():
@@ -160,7 +160,7 @@ def update_display(event=None): #TODO: add error printouts for the user
             con_flag = conical_flag_select.value
             conical_output.object = f"Conical Results:  \n{conical(con_mu_val, con_choice, con_val, con_flag, gamma_val)}"
         except Exception as e:
-            conical_output.object = f"Results will print here when a valid input is present.  \nmu:0.0  \nmc:0.0  \ntheta_c:0.0  \nbeta:0.0  \ndelta:0.0    \npr:0.0    \ndr:0.0  \ntr:0.0  \ntpr:0.0  \npc_pu:0.0  \nrohc_rhou:0.0  \nTc_Tu:0.0"
+            conical_output.object = f"Results will print here when a valid input is present.  \nUpstream Mach Number:0.0  \nMach Number at Cones' Surface:0.0  \nHalf Cone Angle:0.0  \nBeta (Shockwave Angle):0.0  \nDelta (Flow Deflection Angle):0.0  \nPressure Ratio Pd/Pu:0.0  \nDensity Ratio rhod/rhou:0.0  \nTemperature Ratio:0.0  \nTotal Pressure Ratio across Shockwave:0.0  \nPressure Ratio Between Cone Surface and Upstream Condition:0.0  \nDensity Ratio Between Cone Surface and Upstream Condition:0.0  \nTemperature Ratio Between Cone Surface and Upstream Condition:0.0""
 
     # OBLIQUE
     if oblique_p1_raw.value.strip() and oblique_p2_raw.value.strip():
@@ -172,7 +172,7 @@ def update_display(event=None): #TODO: add error printouts for the user
             obl_flag = oblique_flag_select.value
             oblique_output.object = f"Oblique Results:  \n{oblique(obl_choice_p1, obl_p1_val, obl_choice_p2, obl_p2_val, obl_flag, gamma_val)}"
         except Exception as e:
-            oblique_output.object = f"Results will print here when a valid input is present.  \nmu:0.0  \nmnu:0.0  \nmd:0.0  \nmnd:0.0  \nbeta:0.0  \ntheta:0.0  \npr:0.0  \ntr:0.0  \ntpr:0.0"
+            oblique_output.object = f"Results will print here when a valid input is present.  \nUpstream Mach Number:0.0  \nUpstream Normal Mach Number:0.0  \nMach Number Downstream:0.0  \nDownstream Normal Mach Number:0.0  \nBeta:0.0  \nTheta:0.0  \nPressure Ratio:0.0  \nDensity Ratio:0.0  \nTemperature Ratio:0.0  \nTotal Pressure Ratio:0.0"
 
 
 # you know, the button
@@ -214,3 +214,5 @@ app = pn.Column(logos, pn.Tabs(
 # Use this line when running via `panel serve`
 pn.state.favicon = "static/erlogo.png"
 app.servable(title="AeroCalculator")
+
+
