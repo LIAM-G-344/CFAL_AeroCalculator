@@ -21,7 +21,8 @@ from pygasflow.interactive.diagrams import (
     NormalShockDiagram,
     ObliqueShockDiagram,
     FannoDiagram,
-    RayleighDiagram
+    RayleighDiagram,
+    GasPage, GasDiagram
 )
 
 
@@ -214,6 +215,7 @@ app = pn.Column(pn.Tabs(
          pn.Row(FannoDiagram()),
          pn.Row(RayleighDiagram()),
          pn.Row(ObliqueShockDiagram()),
+         pn.Row(GasDiagram()),
          pn.Row(credits)
      )),
     ("Incompressable Functions Calculator",
