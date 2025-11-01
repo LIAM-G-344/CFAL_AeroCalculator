@@ -14,6 +14,7 @@ from pygasflow.solvers import (
     oblique_shockwave_solver,
     conical_shockwave_solver,
     fanno_solver,
+    gas_solver,
     rayleigh_solver
 )
 from pygasflow.interactive.diagrams import (
@@ -77,6 +78,7 @@ def oblique(p1, p1_value, p2, p2_value, flag, gamma_select):
 
 # Panel widgets
 # logoz becauz it makes it look like a massive W
+logos = pn.pane.Image("logo.png",width = 400)
 
 
 # gamma for all
@@ -191,7 +193,7 @@ def update_display(event=None): #TODO: add error printouts for the user
 calc_button.on_click(update_display)
 
 # Layout
-app = pn.Column(pn.Tabs(
+app = pn.Column(logos, pn.Tabs(
     ("Compressable Functions Calculator",
      pn.Column(
          gamma_input_raw,
@@ -216,6 +218,16 @@ app = pn.Column(pn.Tabs(
          pn.Row(RayleighDiagram()),
          pn.Row(ObliqueShockDiagram()),
          pn.Row(GasDiagram()),
+         pn.Row(credits)
+     )),
+("Incompressable Functions Calculator",
+     pn.Column(
+         pn.Row(label_wip),
+         pn.Row(credits)
+     )),
+    ("Nozzles",
+     pn.Column(
+         pn.Row(label_wip),
          pn.Row(credits)
      )),
     ("Incompressable Functions Calculator",
