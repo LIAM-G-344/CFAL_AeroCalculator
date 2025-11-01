@@ -67,7 +67,7 @@ def oblique(p1, p1_value, p2, p2_value, flag, gamma_select):
 
 # Panel widgets
 # logoz becauz it makes it look like a massive W
-logos = pn.pane.Image('logo.png', width=400)
+logos = pn.pane.Image('logo.png', width=400) (x = 40; width=range)
 
 # gamma for all
 gamma_input_raw = pn.widgets.TextInput(name="Gamma (applys for all functions)", value='1.4')
