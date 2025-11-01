@@ -1,4 +1,4 @@
-from bokeh.models import HoverTool, Range1d, LinearAxis
+"""from bokeh.models import HoverTool, Range1d, LinearAxis
 import itertools
 import param
 from pygasflow.interactive.diagrams.flow_base import FlowCommon
@@ -6,7 +6,7 @@ from pygasflow.solvers import isentropic_solver
 #this should be the interactive section for the isentropic graph
 
 class IsentropicDiagram(FlowCommon):
-    """Interactive component to create a diagram for the isentropic flow.
+    Interactive component to create a diagram for the isentropic flow.
 
     Examples
     --------
@@ -50,7 +50,7 @@ class IsentropicDiagram(FlowCommon):
         )
         d.show_figure()
 
-    """
+
 
     y_label_right = param.String("Angles [deg]", label="Y Label right:")
 
@@ -67,12 +67,12 @@ class IsentropicDiagram(FlowCommon):
         default=1
     )
 
-    angle_lines_kwargs = param.Dict({}, doc="""
+    angle_lines_kwargs = param.Dict({}, doc=
         Keyword arguments to customize the appearance of the Mach Angle
-        and Prandtl-Meyer Angle.""")
+        and Prandtl-Meyer Angle.)
 
-    ratio_lines_kwargs = param.Dict({}, doc="""
-        Keyword arguments to customize the appearance of the ratios.""")
+    ratio_lines_kwargs = param.Dict({}, doc=
+        Keyword arguments to customize the appearance of the ratios.)
 
     def __init__(self, **params):
         params.setdefault("select", 0)
@@ -182,3 +182,10 @@ class IsentropicDiagram(FlowCommon):
             ):
                 source = {"xs": self.results[0], "ys": r, "v": [l] * len(r)}
                 renderer.data_source.data.update(source)
+"""
+#new stuff
+
+from pygasflow.interactive.diagrams import IsentropicDiagram
+
+d = IsentropicDiagram(select=1,mach_range=(0, 3),gamma=1.2,size=(600, 350))
+d.show_figure()
