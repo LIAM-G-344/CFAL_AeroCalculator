@@ -125,7 +125,7 @@ fanno_output = pn.pane.Markdown("Fanno Results:  \nMach Number:0.0  \nCritical P
 
 rayleigh_input_raw = pn.widgets.TextInput(name="Rayleigh Parameter Value")
 rayleigh_p1_select = pn.widgets.Select(name="Rayleigh Parameter", options=ray_p1_choice)
-rayleigh_output = pn.pane.Markdown("Rayleigh Results:  \Mach Number:0.0  \nCritical Pressure Ratio P/P*:0.0  \nCritical Density Ratio rho/rho*:0.0  \nCritical Temperature Ratio T/T*:0.0  \nCritical Total Pressure Ratio P0/P0:0.0  \nCritical Total Temperature Ratio T0/T0:0.0  \nCritical Velocity Ratio U/U*:0.0  \nCritical Entropy Ratio (s*-s)/R:0.0")
+rayleigh_output = pn.pane.Markdown("Rayleigh Results:  \nMach Number:0.0  \nCritical Pressure Ratio P/P*:0.0  \nCritical Density Ratio rho/rho*:0.0  \nCritical Temperature Ratio T/T*:0.0  \nCritical Total Pressure Ratio P0/P0:0.0  \nCritical Total Temperature Ratio T0/T0:0.0  \nCritical Velocity Ratio U/U*:0.0  \nCritical Entropy Ratio (s*-s)/R:0.0")
 calc_button = pn.widgets.Button(name="Calculate", button_type='primary')
 
 conical_input_raw = pn.widgets.TextInput(name="Conical Shockwave Parameter Value")
@@ -190,7 +190,7 @@ def update_display(event=None): #TODO: add error printouts for the user
             ray_choice = rayleigh_p1_select.value
             rayleigh_output.object = f"Rayleigh Results:  \n{rayleigh(ray_choice, ray_val, gamma_val)}"
         except Exception as e:
-            rayleigh_output.object = f"Results will print here when a valid input is present.  \Mach Number:0.0  \nCritical Pressure Ratio P/P*:0.0  \nCritical Density Ratio rho/rho*:0.0  \nCritical Temperature Ratio T/T*:0.0  \nCritical Total Pressure Ratio P0/P0:0.0  \nCritical Total Temperature Ratio T0/T0:0.0  \nCritical Velocity Ratio U/U*:0.0  \nCritical Entropy Ratio (s*-s)/R:0.0"
+            rayleigh_output.object = f"Results will print here when a valid input is present.  \nMach Number:0.0  \nCritical Pressure Ratio P/P*:0.0  \nCritical Density Ratio rho/rho*:0.0  \nCritical Temperature Ratio T/T*:0.0  \nCritical Total Pressure Ratio P0/P0:0.0  \nCritical Total Temperature Ratio T0/T0:0.0  \nCritical Velocity Ratio U/U*:0.0  \nCritical Entropy Ratio (s*-s)/R:0.0"
 
     # CONICAL
     if conical_input_raw.value.strip() and conical_mu_input_raw.value.strip():
