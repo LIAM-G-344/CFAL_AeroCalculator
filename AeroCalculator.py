@@ -39,41 +39,52 @@ obl_p1_choice = ['pressure', 'temperature', 'density', 'total_pressure', 'mu', '
 obl_p2_choice = ['beta', 'theta', 'mnu']
 flag_all = ['weak', 'strong']
 
+#server partitions will be in these functions:
+import multiprocessing as mp
 
 # Helper to format dict results
+
 def format_results(results_dict):  # fucntion written by chat gpt and it made the program work
     return "  \n".join(f"{k}: {v}" for k, v in results_dict.items())
 
 
 # Solvers
-def isentropic(p1, value, gamma_select):
-    results = isentropic_solver(p1, value, gamma=gamma_select, to_dict=True)
-    return format_results(results)
 
+def faster_isentropic():
+    with mp.Pool(processes=4) as pool:
+        def isentropic(p1, value, gamma_select):
+            results = isentropic_solver(p1, value, gamma=gamma_select, to_dict=True)
+            return format_results(results)
 
-def normal(p1, value, gamma_select):
-    results = normal_shockwave_solver(p1, value, gamma=gamma_select, to_dict=True)
-    return format_results(results)
+def faster_normal():
+    with mp.Pool(processes=4) as pool:
+        def normal(p1, value, gamma_select):
+            results = normal_shockwave_solver(p1, value, gamma=gamma_select, to_dict=True)
+            return format_results(results)
 
+def faster_fanno():
+    with mp.Pool(processes=4) as pool:
+        def fanno(p1, value, gamma_select):
+            results = fanno_solver(p1, value, gamma=gamma_select, to_dict=True)
+            return format_results(results)
 
-def fanno(p1, value, gamma_select):
-    results = fanno_solver(p1, value, gamma=gamma_select, to_dict=True)
-    return format_results(results)
+def faster_rayleigh():
+    with mp.Pool(processes=4) as pool:
+        def rayleigh(p1, value, gamma_select):
+            results = rayleigh_solver(p1, value, gamma=gamma_select, to_dict=True)
+            return format_results(results)
 
+def faster_conical():
+    with mp.Pool(processes=4) as pool:
+        def conical(mu, p1, value, flag, gamma_select):
+            results = conical_shockwave_solver(mu, p1, value, gamma=gamma_select, flag=flag, to_dict=True)
+            return format_results(results)
 
-def rayleigh(p1, value, gamma_select):
-    results = rayleigh_solver(p1, value, gamma=gamma_select, to_dict=True)
-    return format_results(results)
-
-
-def conical(mu, p1, value, flag, gamma_select):
-    results = conical_shockwave_solver(mu, p1, value, gamma=gamma_select, flag=flag, to_dict=True)
-    return format_results(results)
-
-
-def oblique(p1, p1_value, p2, p2_value, flag, gamma_select):
-    results = oblique_shockwave_solver(p1, p1_value, p2, p2_value, gamma=gamma_select, flag=flag, to_dict=True)
-    return format_results(results)
+def faster_oblique():
+    with mp.Pool(processes=4) as pool:
+        def oblique(p1, p1_value, p2, p2_value, flag, gamma_select):
+            results = oblique_shockwave_solver(p1, p1_value, p2, p2_value, gamma=gamma_select, flag=flag, to_dict=True)
+            return format_results(results)
 
 
 # Panel widgets
@@ -212,12 +223,12 @@ app = pn.Column(logos, pn.Tabs(
      pn.Column(
          pn.Row(label_wip),
 
-         pn.Row(IsentropicDiagram()),
-         pn.Row(NormalShockDiagram()),
-         pn.Row(FannoDiagram()),
-         pn.Row(RayleighDiagram()),
-         pn.Row(ObliqueShockDiagram()),
-         pn.Row(GasDiagram()),
+         pn.Row(faster_isentropic()),
+         pn.Row(faster_normal()),
+         pn.Row(faster_fanno()),
+         pn.Row(faster_rayleigh()),
+         pn.Row(faster_oblique()),
+         pn.Row(GasDiagram),
          pn.Row(credits)
      )),
 ("Incompressable Functions Calculator",
