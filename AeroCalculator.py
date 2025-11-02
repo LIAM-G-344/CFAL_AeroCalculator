@@ -14,7 +14,6 @@ from pygasflow.solvers import (
     oblique_shockwave_solver,
     conical_shockwave_solver,
     fanno_solver,
-    gas_solver,
     rayleigh_solver
 )
 from pygasflow.interactive.diagrams import (
@@ -23,7 +22,6 @@ from pygasflow.interactive.diagrams import (
     ObliqueShockDiagram,
     FannoDiagram,
     RayleighDiagram,
-    GasDiagram
 )
 
 
@@ -49,7 +47,36 @@ def format_results(results_dict):  # fucntion written by chat gpt and it made th
 
 
 # Solvers
+def isentropic(p1, value, gamma_select):
+    results = isentropic_solver(p1, value, gamma=gamma_select, to_dict=True)
+    return format_results(results)
 
+
+def normal(p1, value, gamma_select):
+    results = normal_shockwave_solver(p1, value, gamma=gamma_select, to_dict=True)
+    return format_results(results)
+
+
+def fanno(p1, value, gamma_select):
+    results = fanno_solver(p1, value, gamma=gamma_select, to_dict=True)
+    return format_results(results)
+
+
+def rayleigh(p1, value, gamma_select):
+    results = rayleigh_solver(p1, value, gamma=gamma_select, to_dict=True)
+    return format_results(results)
+
+
+def conical(mu, p1, value, flag, gamma_select):
+    results = conical_shockwave_solver(mu, p1, value, gamma=gamma_select, flag=flag, to_dict=True)
+    return format_results(results)
+
+
+def oblique(p1, p1_value, p2, p2_value, flag, gamma_select):
+    results = oblique_shockwave_solver(p1, p1_value, p2, p2_value, gamma=gamma_select, flag=flag, to_dict=True)
+    return format_results(results)
+
+#fatser things for the graphs
 def faster_isentropic():
     with mp.Pool(processes=4) as pool:
         def isentropic(p1, value, gamma_select):
@@ -228,7 +255,6 @@ app = pn.Column(logos, pn.Tabs(
          pn.Row(faster_fanno()),
          pn.Row(faster_rayleigh()),
          pn.Row(faster_oblique()),
-         pn.Row(GasDiagram),
          pn.Row(credits)
      )),
     ("Incompressable Functions Calculator",
