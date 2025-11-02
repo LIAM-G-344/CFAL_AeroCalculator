@@ -3,7 +3,7 @@
 # so i fed it into chad gpt and told it to fix it and it did and it also organized this prittey well so, imma take it. any
 # code written by chad gpt is marked accordingly
 
-
+import multiprocessing as mp
 import panel as pn
 import matplotlib.pyplot as plt
 import numpy as np
@@ -38,7 +38,7 @@ obl_p2_choice = ['beta', 'theta', 'mnu']
 flag_all = ['weak', 'strong']
 
 #server partitions will be in these functions:
-import multiprocessing as mp
+
 
 # Helper to format dict results
 
@@ -76,42 +76,31 @@ def oblique(p1, p1_value, p2, p2_value, flag, gamma_select):
     results = oblique_shockwave_solver(p1, p1_value, p2, p2_value, gamma=gamma_select, flag=flag, to_dict=True)
     return format_results(results)
 
-#fatser things for the graphs
+#fatser things for the graphs with multthreading
 def faster_isentropic():
     with mp.Pool(processes=4) as pool:
-        def isentropic(p1, value, gamma_select):
-            results = isentropic_solver(p1, value, gamma=gamma_select, to_dict=True)
-            return format_results(results)
+        results = IsentropicDiagram()
+        return results
 
 def faster_normal():
     with mp.Pool(processes=4) as pool:
-        def normal(p1, value, gamma_select):
-            results = normal_shockwave_solver(p1, value, gamma=gamma_select, to_dict=True)
-            return format_results(results)
+        results = NormalShockDiagram
+        return results
 
 def faster_fanno():
     with mp.Pool(processes=4) as pool:
-        def fanno(p1, value, gamma_select):
-            results = fanno_solver(p1, value, gamma=gamma_select, to_dict=True)
-            return format_results(results)
+        results = FannoDiagram
+        return results
 
 def faster_rayleigh():
     with mp.Pool(processes=4) as pool:
-        def rayleigh(p1, value, gamma_select):
-            results = rayleigh_solver(p1, value, gamma=gamma_select, to_dict=True)
-            return format_results(results)
-
-def faster_conical():
-    with mp.Pool(processes=4) as pool:
-        def conical(mu, p1, value, flag, gamma_select):
-            results = conical_shockwave_solver(mu, p1, value, gamma=gamma_select, flag=flag, to_dict=True)
-            return format_results(results)
+        results = RayleighDiagram
+        return results
 
 def faster_oblique():
     with mp.Pool(processes=4) as pool:
-        def oblique(p1, p1_value, p2, p2_value, flag, gamma_select):
-            results = oblique_shockwave_solver(p1, p1_value, p2, p2_value, gamma=gamma_select, flag=flag, to_dict=True)
-            return format_results(results)
+        results = ObliqueShockDiagram
+        return results
 
 
 # Panel widgets
@@ -249,7 +238,6 @@ app = pn.Column(logos, pn.Tabs(
     ("Compressable Functions Graphs",
      pn.Column(
          pn.Row(label_wip),
-
          pn.Row(faster_isentropic()),
          pn.Row(faster_normal()),
          pn.Row(faster_fanno()),
