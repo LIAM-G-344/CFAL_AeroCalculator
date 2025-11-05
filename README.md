@@ -5,5 +5,5 @@ TODO:
 - favion
 - nozzles
 - error handling
-
+- better names
 graphs -> nozzles -> stable implentation
