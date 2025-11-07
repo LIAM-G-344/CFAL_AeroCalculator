@@ -1,7 +1,7 @@
 # Liam Griesacker and Massimo Mansueto copyright 2025
 # most of this i wrote but it gave me some error because the solvers return dictonaries and kept retruning a weird error
-# so i fed it into chad gpt and told it to fix it and it did and it also organized this prittey well so, imma take it. any
-# code written by chad gpt is marked accordingly
+# so i fed it into chad gpt and told it to fix it and it did and prittey well so, imma take it. any code written by chad
+# gpt is marked accordingly
 
 import multiprocessing as mp
 import panel as pn
@@ -16,14 +16,10 @@ from pygasflow.solvers import (
     fanno_solver,
     rayleigh_solver
 )
-from pygasflow.interactive.diagrams import (
-    IsentropicDiagram,
-    NormalShockDiagram,
-    ObliqueShockDiagram,
-    FannoDiagram,
-    RayleighDiagram,
-)
-
+from isentropic_disp import isentropic_graph
+from normal_shock_disp import normal_shock_graph
+from fanno_disp import fanno_graph
+from rayleigh_disp import rayleigh_graph
 
 pn.extension()
 
@@ -76,33 +72,6 @@ def oblique(p1, p1_value, p2, p2_value, flag, gamma_select):
     results = oblique_shockwave_solver(p1, p1_value, p2, p2_value, gamma=gamma_select, flag=flag, to_dict=True)
     return format_results(results)
 
-#fatser things for the graphs with multthreading
-def faster_isentropic():
-    with mp.Pool(processes=4) as pool:
-        results = IsentropicDiagram()
-        return results
-
-def faster_normal():
-    with mp.Pool(processes=4) as pool:
-        results = NormalShockDiagram
-        return results
-
-def faster_fanno():
-    with mp.Pool(processes=4) as pool:
-        results = FannoDiagram
-        return results
-
-def faster_rayleigh():
-    with mp.Pool(processes=4) as pool:
-        results = RayleighDiagram
-        return results
-
-def faster_oblique():
-    with mp.Pool(processes=4) as pool:
-        results = ObliqueShockDiagram
-        return results
-
-
 # Panel widgets
 # logoz becauz it makes it look like a massive W
 logos = pn.pane.Image("logo.png",width = 400)
@@ -147,7 +116,7 @@ oblique_output = pn.pane.Markdown("Oblique Results:  \nUpstream Mach Number:0.0 
 credits = pn.pane.Markdown("AeroCalculator by Liam Griesacker and Massimo Mansueto of the Embry-Riddle Aeronautical University CFAL 2025. Credit to Davide Sandona of PyGasFlow.")
 
 #tell the users the unfinished pages are works in progress
-label_wip = pn.pane.Markdown("WORK IN PROGRESS!")
+label_wip = pn.pane.Markdown("WORK IN PROGRESS! Values and ratios are not final.")
 
 # Update function which runs when calculate button is clicked
 # for all the try and excepts first line the .value.strip() thing chat gpt did and it worked
@@ -238,16 +207,10 @@ app = pn.Column(logos, pn.Tabs(
     ("Compressable Functions Graphs",
      pn.Column(
          pn.Row(label_wip),
-         pn.Row(faster_isentropic()),
-         pn.Row(faster_normal()),
-         pn.Row(faster_fanno()),
-         pn.Row(faster_rayleigh()),
-         pn.Row(faster_oblique()),
-         pn.Row(credits)
-     )),
-    ("Incompressable Functions Calculator",
-     pn.Column(
-         pn.Row(label_wip),
+         pn.Row(pn.pane.Matplotlib(isentropic_graph(1.4),dpi=144)),
+         pn.Row(pn.pane.Matplotlib(normal_shock_graph(1.4),dpi=144)),
+         pn.Row(pn.pane.Matplotlib(fanno_graph(1.4),dpi=144)),
+         pn.Row(pn.pane.Matplotlib(rayleigh_graph(1.4),dpi=144)),
          pn.Row(credits)
      )),
     ("Nozzles",
