@@ -209,9 +209,8 @@ app = pn.Column(logos, pn.Tabs(
     ("Compressable Functions Graphs",
      pn.Column(
          pn.Row(label_wip),
-         pn.Row(pn.pane.Matplotlib(isentropic_graph(1.4),dpi=144)),
          pn.Row(test_slider),
-
+         pn.Row(pn.pane.Matplotlib(isentropic_graph(1.4),dpi=144)),
          pn.Row(pn.pane.Matplotlib(normal_shock_graph(1.4),dpi=144)),
          pn.Row(pn.pane.Matplotlib(fanno_graph(1.4),dpi=144)),
          pn.Row(pn.pane.Matplotlib(rayleigh_graph(1.4),dpi=144)),
@@ -233,7 +232,7 @@ app = pn.Column(logos, pn.Tabs(
          pn.Row(credits)
      ))
 ))
-
+print(test_slider.param.watch(float(test_slider.value)))
 # Use this line when running via `panel serve`
 pn.state.favicon = "static/erlogo.png"
 app.servable(title="AeroCalculator")
