@@ -33,13 +33,34 @@ obl_p1_choice = ['pressure', 'temperature', 'density', 'total_pressure', 'mu', '
 obl_p2_choice = ['beta', 'theta', 'mnu']
 flag_all = ['weak', 'strong']
 
+#so it dosent return m, but now rturns Mach Number. nice for printing
+#ngl, chad gpt was fire with this reccomendation but  i wrote all of it
+name_map = {
+    'm':'Mach Number',
+    'pr':'Pressure Ratio P/P0',
+    'dr':'Density Ratio p/p0',
+    'tr':'Temperature Ratio T/T0',
+    'prs':'Critical Pressure Ratio P/P*',
+    'drs':'Critical Density Ratio p/p*',
+    'trs':'Critical Temperature Ratio T/T*',
+    'urs':'Critical Velocity Ratio U/U*',
+    'ars':'Critical Aera Ratio A/A*',
+    'ma':'Mach Angle',
+    'pm':'Prandtl-Meyer Angle',
+    'mu':'Upstream Mach Number',
+    'md':'Downstream Mach Number',
+    'tpr':'Total Pressure Ratio',
+    'tprs':'Critical Total Pressure Ratio P0/P*0',
+    'fps':'Critical Friction Parameter 4fL*/D'
+}
+
 #server partitions will be in these functions:
 
 
 # Helper to format dict results
 
-def format_results(results_dict):  # fucntion written by chat gpt and it made the program work
-    return "  \n".join(f"{k}: {v}" for k, v in results_dict.items())
+def format_results(results_dict):  # fucntion written by chat gpt and it made the program work beofre it waz broken
+    return "  \n".join(f"{name_map.get(k,k)}: {v}" for k, v in results_dict.items())
 
 
 # Solvers
@@ -186,9 +207,11 @@ def update_display(event=None): #TODO: add error printouts for the user
 
 
 # you know, the button
-test_slider = pn.widgets.FloatSlider(name = "Ratio of Specific Heats", start = 1.0, end = 1.5, step = 0.01)
-display = pn.pane.Markdown(f"**Slider value:** {test_slider.value:.1f}")
-"calc_button.on_click(update_display)"
+test_slider = pn.widgets.FloatSlider(name = "Ratio of Specific Heats", start = 1.33, end = 1.42, step = 0.01, value=1.4)
+calc_button.on_click(update_display)
+
+test = pn.bind(isentropic_graph,gamma=test_slider)
+
 
 # Layout
 app = pn.Column(logos, pn.Tabs(
@@ -210,10 +233,10 @@ app = pn.Column(logos, pn.Tabs(
      pn.Column(
          pn.Row(label_wip),
          pn.Row(test_slider),
-         pn.Row(pn.pane.Matplotlib(isentropic_graph(1.4),dpi=144)),
-         pn.Row(pn.pane.Matplotlib(normal_shock_graph(1.4),dpi=144)),
-         pn.Row(pn.pane.Matplotlib(fanno_graph(1.4),dpi=144)),
-         pn.Row(pn.pane.Matplotlib(rayleigh_graph(1.4),dpi=144)),
+         pn.panel(pn.bind(isentropic_graph,gamma=test_slider)),
+         pn.panel(pn.bind(normal_shock_graph, gamma=test_slider)),
+         pn.panel(pn.bind(fanno_graph,gamma=test_slider)),
+         pn.panel(pn.bind(rayleigh_graph,gamma=test_slider)),
          pn.Row(credits)
      )),
     ("Nozzles",
@@ -232,7 +255,7 @@ app = pn.Column(logos, pn.Tabs(
          pn.Row(credits)
      ))
 ))
-print(test_slider.param.watch(float(test_slider.value)))
+
 # Use this line when running via `panel serve`
 pn.state.favicon = "static/erlogo.png"
 app.servable(title="AeroCalculator")
