@@ -186,7 +186,9 @@ def update_display(event=None): #TODO: add error printouts for the user
 
 
 # you know, the button
-calc_button.on_click(update_display)
+test_slider = pn.widgets.FloatSlider(name = "Ratio of Specific Heats", start = 1.0, end = 1.5, step = 0.01)
+display = pn.pane.Markdown(f"**Slider value:** {test_slider.value:.1f}")
+"calc_button.on_click(update_display)"
 
 # Layout
 app = pn.Column(logos, pn.Tabs(
@@ -208,6 +210,8 @@ app = pn.Column(logos, pn.Tabs(
      pn.Column(
          pn.Row(label_wip),
          pn.Row(pn.pane.Matplotlib(isentropic_graph(1.4),dpi=144)),
+         pn.Row(test_slider),
+
          pn.Row(pn.pane.Matplotlib(normal_shock_graph(1.4),dpi=144)),
          pn.Row(pn.pane.Matplotlib(fanno_graph(1.4),dpi=144)),
          pn.Row(pn.pane.Matplotlib(rayleigh_graph(1.4),dpi=144)),
