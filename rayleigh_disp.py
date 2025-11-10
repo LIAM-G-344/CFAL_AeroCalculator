@@ -2,13 +2,17 @@ from pygasflow.solvers import rayleigh_solver
 import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 import numpy as np
+import pandas as pd
 
 #just a helper function
 def rayleigh(x_value, gamma_input):
     results = rayleigh_solver("m", x_value, gamma=gamma_input, to_dict=True)
     return results
 
-def rayleigh_graph(gamma):
+def rayleigh_graph(gamma,range_input,resolution):
+    range_high = range_input[1]
+    range_low = range_input[0]
+
     #list holding all x values
     x_list = []
 
@@ -27,7 +31,7 @@ def rayleigh_graph(gamma):
     axis = fig.subplots()
 
     #optimization by pregeneration
-    if gamma == 1.4:
+    if (gamma == 1.4) and (range_low == 0) and (range_high == 5) and (resolution == 20):
         m = [np.float64(0.0), np.float64(0.05), np.float64(0.1), np.float64(0.15000000000000002), np.float64(0.2), np.float64(0.25), np.float64(0.30000000000000004), np.float64(0.35000000000000003), np.float64(0.4), np.float64(0.45), np.float64(0.5), np.float64(0.55), np.float64(0.6000000000000001), np.float64(0.65), np.float64(0.7000000000000001), np.float64(0.75), np.float64(0.8), np.float64(0.8500000000000001), np.float64(0.9), np.float64(0.9500000000000001), np.float64(1.0), np.float64(1.05), np.float64(1.1), np.float64(1.1500000000000001), np.float64(1.2000000000000002), np.float64(1.25), np.float64(1.3), np.float64(1.35), np.float64(1.4000000000000001), np.float64(1.4500000000000002), np.float64(1.5), np.float64(1.55), np.float64(1.6), np.float64(1.6500000000000001), np.float64(1.7000000000000002), np.float64(1.75), np.float64(1.8), np.float64(1.85), np.float64(1.9000000000000001), np.float64(1.9500000000000002), np.float64(2.0), np.float64(2.0500000000000003), np.float64(2.1), np.float64(2.15), np.float64(2.2), np.float64(2.25), np.float64(2.3000000000000003), np.float64(2.35), np.float64(2.4000000000000004), np.float64(2.45), np.float64(2.5), np.float64(2.5500000000000003), np.float64(2.6), np.float64(2.6500000000000004), np.float64(2.7), np.float64(2.75), np.float64(2.8000000000000003), np.float64(2.85), np.float64(2.9000000000000004), np.float64(2.95), np.float64(3.0), np.float64(3.0500000000000003), np.float64(3.1), np.float64(3.1500000000000004), np.float64(3.2), np.float64(3.25), np.float64(3.3000000000000003), np.float64(3.35), np.float64(3.4000000000000004), np.float64(3.45), np.float64(3.5), np.float64(3.5500000000000003), np.float64(3.6), np.float64(3.6500000000000004), np.float64(3.7), np.float64(3.75), np.float64(3.8000000000000003), np.float64(3.85), np.float64(3.9000000000000004), np.float64(3.95), np.float64(4.0), np.float64(4.05), np.float64(4.1000000000000005), np.float64(4.15), np.float64(4.2), np.float64(4.25), np.float64(4.3), np.float64(4.3500000000000005), np.float64(4.4), np.float64(4.45), np.float64(4.5), np.float64(4.55), np.float64(4.6000000000000005), np.float64(4.65), np.float64(4.7), np.float64(4.75), np.float64(4.800000000000001), np.float64(4.8500000000000005), np.float64(4.9), np.float64(4.95)]
         prs = [np.float64(2.4), np.float64(2.3916292974588935), np.float64(2.366863905325444), np.float64(2.32670867668444), np.float64(2.2727272727272725), np.float64(2.206896551724138), np.float64(2.131438721136767), np.float64(2.0486555697823303), np.float64(1.9607843137254901), np.float64(1.8698870276587454), np.float64(1.7777777777777777), np.float64(1.6859852476290833), np.float64(1.5957446808510638), np.float64(1.5080113100848256), np.float64(1.4234875444839858), np.float64(1.3426573426573425), np.float64(1.2658227848101264), np.float64(1.1931394481730053), np.float64(1.1246485473289598), np.float64(1.0603048376408217), np.float64(1.0), np.float64(0.9435816787890702), np.float64(0.8908685968819599), np.float64(0.8416622830089426), np.float64(0.7957559681697611), np.float64(0.7529411764705882), np.float64(0.7130124777183601), np.float64(0.6757708010699703), np.float64(0.641025641025641), np.float64(0.6085964244960059), np.float64(0.5783132530120482), np.float64(0.5500171880371261), np.float64(0.5235602094240837), np.float64(0.4988049464823859), np.float64(0.47562425683709864), np.float64(0.45390070921985815), np.float64(0.43352601156069365), np.float64(0.41440041440041436), np.float64(0.39643211100099107), np.float64(0.3795366490076697), np.float64(0.36363636363636365), np.float64(0.3486598387448245), np.float64(0.3345413994981879), np.float64(0.3212206384260189), np.float64(0.30864197530864196), np.float64(0.2967542503863988), np.float64(0.2855103497501784), np.float64(0.27486686136402677), np.float64(0.26478375992939096), np.float64(0.25522411867921513), np.float64(0.24615384615384614), np.float64(0.2375414460335527), np.float64(0.2293577981651376), np.float64(0.22157595900844754), np.float64(0.2141709798322327), np.float64(0.20711974110032363), np.float64(0.2004008016032064), np.float64(0.19399426100311198), np.float64(0.18788163457022072), np.float64(0.1820457389919217), np.float64(0.17647058823529413), np.float64(0.1711412985346026), np.float64(0.16604400166044), np.float64(0.16116576570526805), np.float64(0.15649452269170577), np.float64(0.15201900237529692), np.float64(0.14772867167302717), np.float64(0.14361367920294407), np.float64(0.13966480446927373), np.float64(0.13587341127183172), np.float64(0.1322314049586777), np.float64(0.12873119317724674), np.float64(0.12536564981195153), np.float64(0.1221280818258148), np.float64(0.1190121987503719), np.float64(0.11601208459214502), np.float64(0.11312217194570134), np.float64(0.11033721812288808), np.float64(0.1076522831255046), np.float64(0.1050627093046162), np.float64(0.10256410256410256), np.float64(0.10015231497903061), np.float64(0.0978234287111763), np.float64(0.09557374111462874), np.float64(0.09339975093399751), np.float64(0.0912981455064194), np.float64(0.08926578888640929), np.float64(0.0872997108197079), np.float64(0.08539709649871903), np.float64(0.08355527703796542), np.float64(0.08177172061328791), np.float64(0.08004402421331734), np.float64(0.07836990595611285), np.float64(0.07674719792782565), np.float64(0.07517383950385265), np.float64(0.07364787111622555), np.float64(0.07216742843396678), np.float64(0.07073073692586533), np.float64(0.06933610677760442), np.float64(0.0679819281374368)]
         drs = [np.float64('inf'), np.float64(167.24999999999997), np.float64(42.24999999999999), np.float64(19.101851851851848), np.float64(10.999999999999998), np.float64(7.25), np.float64(5.212962962962962), np.float64(3.98469387755102), np.float64(3.1874999999999996), np.float64(2.6409465020576133), np.float64(2.2500000000000004), np.float64(1.9607438016528922), np.float64(1.7407407407407403), np.float64(1.5695266272189348), np.float64(1.4336734693877549), np.float64(1.3240740740740742), np.float64(1.2343749999999998), np.float64(1.1600346020761243), np.float64(1.0977366255144032), np.float64(1.0450138504155124), np.float64(1.0), np.float64(0.9612622826908541), np.float64(0.927685950413223), np.float64(0.8983931947069943), np.float64(0.8726851851851851), np.float64(0.85), np.float64(0.8298816568047337), np.float64(0.8119570187471422), np.float64(0.7959183673469388), np.float64(0.7815101070154578), np.float64(0.7685185185185187), np.float64(0.7567637877211237), np.float64(0.74609375), np.float64(0.7363789409243954), np.float64(0.7275086505190311), np.float64(0.7193877551020408), np.float64(0.7119341563786008), np.float64(0.7050766983199416), np.float64(0.6987534626038782), np.float64(0.6929103659872891), np.float64(0.6875), np.float64(0.6824806662700772), np.float64(0.6778155706727135), np.float64(0.673472147106544), np.float64(0.6694214876033058), np.float64(0.6656378600823044), np.float64(0.6620982986767485), np.float64(0.6587822544137618), np.float64(0.6556712962962963), np.float64(0.6527488546438983), np.float64(0.65), np.float64(0.6474112520825324), np.float64(0.6449704142011834), np.float64(0.6426664293342826), np.float64(0.6404892546867855), np.float64(0.6384297520661156), np.float64(0.6364795918367346), np.float64(0.6346311685646865), np.float64(0.6328775267538644), np.float64(0.6312122953174376), np.float64(0.6296296296296297), np.float64(0.6281241601719968), np.float64(0.6266909469302809), np.float64(0.6253254388175022), np.float64(0.6240234375), np.float64(0.6227810650887574), np.float64(0.6215947352310988), np.float64(0.6204611271998218), np.float64(0.6193771626297577), np.float64(0.6183399845970735), np.float64(0.6173469387755102), np.float64(0.6163955564372148), np.float64(0.6154835390946501), np.float64(0.6146087446049915), np.float64(0.6137691745799854), np.float64(0.6129629629629629), np.float64(0.6121883656509696), np.float64(0.6114437510541406), np.float64(0.6107275914968223), np.float64(0.6100384553757411), np.float64(0.609375), np.float64(0.6087359650459787), np.float64(0.6081201665675192), np.float64(0.6075264915082014), np.float64(0.6069538926681783), np.float64(0.6064013840830449), np.float64(0.6058680367766359), np.float64(0.6053529748535693), np.float64(0.6048553719008264), np.float64(0.6043744476707487), np.float64(0.6039094650205761), np.float64(0.6034597270861006), np.float64(0.6030245746691871), np.float64(0.6026033838208655), np.float64(0.6021955636034404), np.float64(0.6018005540166205), np.float64(0.6014178240740741), np.float64(0.6010468700180679), np.float64(0.6006872136609746), np.float64(0.6003384008434514)]
@@ -39,12 +43,19 @@ def rayleigh_graph(gamma):
         x_list = [0.0, 0.05, 0.1, 0.15000000000000002, 0.2, 0.25, 0.30000000000000004, 0.35000000000000003, 0.4, 0.45, 0.5, 0.55, 0.6000000000000001, 0.65, 0.7000000000000001, 0.75, 0.8, 0.8500000000000001, 0.9, 0.9500000000000001, 1.0, 1.05, 1.1, 1.1500000000000001, 1.2000000000000002, 1.25, 1.3, 1.35, 1.4000000000000001, 1.4500000000000002, 1.5, 1.55, 1.6, 1.6500000000000001, 1.7000000000000002, 1.75, 1.8, 1.85, 1.9000000000000001, 1.9500000000000002, 2.0, 2.0500000000000003, 2.1, 2.15, 2.2, 2.25, 2.3000000000000003, 2.35, 2.4000000000000004, 2.45, 2.5, 2.5500000000000003, 2.6, 2.6500000000000004, 2.7, 2.75, 2.8000000000000003, 2.85, 2.9000000000000004, 2.95, 3.0, 3.0500000000000003, 3.1, 3.1500000000000004, 3.2, 3.25, 3.3000000000000003, 3.35, 3.4000000000000004, 3.45, 3.5, 3.5500000000000003, 3.6, 3.6500000000000004, 3.7, 3.75, 3.8000000000000003, 3.85, 3.9000000000000004, 3.95, 4.0, 4.05, 4.1000000000000005, 4.15, 4.2, 4.25, 4.3, 4.3500000000000005, 4.4, 4.45, 4.5, 4.55, 4.6000000000000005, 4.65, 4.7, 4.75, 4.800000000000001, 4.8500000000000005, 4.9, 4.95]
 
     else:
-        for i in range(100):
-            #bruh
-            #value at each .1 interval
-            x_list.append(i*0.05)
+        # find range, and set current x to the lowest x value to be found
+        x_range = range_high - range_low
+        current_x = range_low
 
-            rayleigh_dict = rayleigh(i*0.05, gamma)
+        # resolution param is points grpahed / in. must take range into account
+        num_points = resolution * x_range
+        for i in range(num_points):
+            #find current x value with respect to iteration # and resoultion defined
+            current_x += 1/resolution
+            x_list.append(current_x)
+
+            #get values for current_x
+            rayleigh_dict = rayleigh(current_x, gamma)
 
             #creates arrays for each possible graph's y values
             m.append(rayleigh_dict['m'])
@@ -55,16 +66,6 @@ def rayleigh_graph(gamma):
             ttrs.append(rayleigh_dict['ttrs'])
             urs.append(rayleigh_dict['urs'])
             eps.append(rayleigh_dict['eps'])
-
-    # print(m)
-    # print(prs)
-    # print(drs)
-    # print(trs)
-    # print(tprs)
-    # print(ttrs)
-    # print(urs)
-    # print(eps)
-    # print(x_list)
 
     axis.plot(x_list, m, label="m")
     axis.plot(x_list, prs, label="prs")
@@ -78,6 +79,32 @@ def rayleigh_graph(gamma):
     axis.set_xlabel("x")
     axis.set_ylabel("y")
     axis.set_ylim(0,3)
+    fig.set_size_inches(5, 3)
+    fig.tight_layout()
     axis.legend()
 
     return(fig)
+
+#create a table
+#no optimization with this one. if we need it here, we gotta be down bad for cpu power
+def rayleigh_data_table(gamma,range_input):
+    range_high = range_input[1]
+    range_low = range_input[0]
+
+    x_range = range_high - range_low
+    current_x = range_low
+
+    # table object
+    table = pd.DataFrame(columns=['Mach', 'Gamma', 'prs', 'drs', 'trs', 'tprs', 'ttrs','urs','eps'])
+
+    #extremely similar logic to what is above. goes to 11 because 10 only goes to 4.5 as zero is the first one
+    for i in range((x_range*2)+1):
+        #value at each 0.5 mach increace (ie: each 0.5 increace in x)
+        #round because somtimes it adds 0.000000000000000001 extra or somthing like that. weird fix but it works
+        current_x += 0.5
+        rayleigh_dict = rayleigh(round(i/2,1),gamma)
+
+        #add another row to the table with ze info
+        table.loc[len(table)] = [round(current_x,1),gamma,rayleigh_dict['prs'],rayleigh_dict['drs'],rayleigh_dict['trs'],rayleigh_dict['tprs'],rayleigh_dict['ttrs'],rayleigh_dict['urs'],rayleigh_dict['eps']]
+
+    return(table)
