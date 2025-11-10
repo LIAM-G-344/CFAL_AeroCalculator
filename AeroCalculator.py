@@ -233,10 +233,10 @@ fanno_range_slider = pn.widgets.RangeSlider(name='Fanno Range Slider', start=0, 
 rayleigh_range_slider = pn.widgets.RangeSlider(name='Rayleigh Range Slider', start=0, end=20, value=(0,5), step=1)
 
 #accuracy/resolution sliders
-isentropic_resolution_slider = pn.widgets.IntSlider(name='Isentropic Resolution Slider', start=1, end=100, step=1, value=20)
-normal_resolution_slider = pn.widgets.IntSlider(name='Normal Resolution Slider', start=1, end=100, step=1, value=20)
-fanno_resolution_slider = pn.widgets.IntSlider(name='Fanno Resolution Slider', start=1, end=100, step=1, value=20)
-rayleigh_resolution_slider = pn.widgets.IntSlider(name='Rayleigh Resolution Slider', start=1, end=100, step=1, value=20)
+isentropic_resolution_slider = pn.widgets.IntSlider(name='Isentropic Resolution Slider', start=1, end=1000, step=1, value=20)
+normal_resolution_slider = pn.widgets.IntSlider(name='Normal Resolution Slider', start=1, end=1000, step=1, value=20)
+fanno_resolution_slider = pn.widgets.IntSlider(name='Fanno Resolution Slider', start=1, end=1000, step=1, value=20)
+rayleigh_resolution_slider = pn.widgets.IntSlider(name='Rayleigh Resolution Slider', start=1, end=1000, step=1, value=20)
 # you know, the button
 calc_button.on_click(update_display)
 
