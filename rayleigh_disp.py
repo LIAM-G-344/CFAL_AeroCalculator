@@ -15,7 +15,7 @@ def rayleigh_graph(gamma,range_input,resolution):
 
     #list holding all x values
     x_list = []
-
+#displays weird with wrong values
     #makes the possible ratio y value graphs an array
     m = []
     prs = []
